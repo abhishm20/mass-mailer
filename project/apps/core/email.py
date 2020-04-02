@@ -7,6 +7,8 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 
 from settings import app_logger, RESOURCE_DIR
+from email.mime.text import MIMEText
+import email.utils
 
 
 def get_config_data():
@@ -44,11 +46,11 @@ class _SendEmailUsingSES:
         try:
             msg = MIMEMultipart('alternative')
             msg.add_header('X-SES-CONFIGURATION-SET', 'ConfigSet')
-            msg['From'] = f"{email_data['sender_name']} {email_data['sender']}"
-            msg['To'] = email_data['to']
+            msg['From'] = email.utils.formataddr((email_data['sender_name'], email_data['sender']))
+            msg['To'] = ",".join(email_data['recipients'])
             msg['Subject'] = email_data['subject']
-            msg = msg.as_string() + "\n" + email_data.get('body', '')
-            self.connection.sendmail(email_data['sender'], email_data['recipients'], msg)
+            msg.attach(MIMEText(email_data.get('body_html', ''), 'html'))
+            self.connection.sendmail(email_data['sender'], email_data['recipients'], msg.as_string())
             self.connection.close()
             # Display an error message if something goes wrong.
         except ConnectionError as e:
