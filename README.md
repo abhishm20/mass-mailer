@@ -2,6 +2,7 @@
 
 - Used Mysql-8.0
 - Used Celery with Redis for background tasks
+- Used flower to monitor background tasks
 - Configured production and local environment. For real world scenario, one can also add development and staging environment.
 - Used Gunicorn with Supervisor to run the server
 - Used nginx for API server
