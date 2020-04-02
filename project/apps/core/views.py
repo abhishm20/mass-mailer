@@ -84,7 +84,7 @@ def index(request):
         customers = customer_paginator.page(customer_paginator.num_pages)
 
     # Email pagination
-    email_paginator = Paginator(emails_res, 2)
+    email_paginator = Paginator(emails_res, 10)
     try:
         emails = email_paginator.page(email_page)
     except PageNotAnInteger:

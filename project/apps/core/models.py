@@ -87,8 +87,7 @@ class Email(models.Model):
 
     @staticmethod
     def get_click_tracking_link(tracking_id):
-        return f'<a href="{HOST_NAME + str(reverse("core:mark-email-clicked"))}?eid={tracking_id}">' \
-               f'Click here</a>'
+        return f'{HOST_NAME + str(reverse("core:mark-email-clicked"))}?eid={tracking_id}'
 
 
 class EmailEvent(models.Model):
