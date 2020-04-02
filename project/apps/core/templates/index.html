@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{title}}</title>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <meta content="mass mailer finshots" name="keywords">
+    <meta content="abhishm20" name="author">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          crossorigin="anonymous">
+    <style>
+        * {
+   font-size: 14px;
+   line-height: 1.428;
+}
+    </style>
+</head>
+<body>
+<div class="row justify-content-md-center" style="padding: 20px">
+    <div class="col-md-10">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5>Mass Mailer</h5>
+            </div>
+            <div class="col-sm-6">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="send_to_all" value="1">
+                    <input type="submit" class="btn float-right btn-sm btn-success" value="Send bulk mail to all customers" />
+                </form>
+
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <h6>Customers</h6>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>
+                                ID
+                            </th>
+                            <th>
+                                Customer Name
+                            </th>
+                            <th>
+                                Email
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in customers %}
+                        <tr>
+                            <td class="text-center">
+                                {{ i.id }}
+                            </td>
+                            <td>
+                                {{ i.name }}
+                            </td>
+                            <td>
+                                {{ i.email }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                    {% if customers.has_other_pages %}
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            {% if customers.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?customer_page={{ customers.previous_page_number }}">&laquo;</a></li>
+                            {% endif %}
+
+                            {% for i in customers.paginator.page_range %}
+                            {% if i <= customers.number|add:5 and i >= customers.number|add:-5 %}
+                                {% if customers.number == i %}
+                                <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                                {% else %}
+                                <li class="page-item"><a class="page-link" href="?customer_page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                            {% if customers.has_next %}
+                            <li class="page-item"><a class="page-link" href="?customer_page={{ customers.next_page_number }}">&raquo;</a></li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h6>Emails Sent</h6>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>To</th>
+                            <th>Subject</th>
+                            <th>Opened Count</th>
+                            <th>Clicked Count</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in emails %}
+                        <tr>
+                            <td>
+                                {{ i.email_data.created_at|date:'Y-m-d' }}
+                            </td>
+                            <td>
+                                {{ i.email_data.to }}
+                            </td>
+                            <td>
+                                {{ i.email_data.subject }}
+                            </td>
+                            <td>
+                                {{ i.opened_count }}
+                            </td>
+                            <td>
+                                {{ i.clicked_count }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                    {% if emails.has_other_pages %}
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            {% if emails.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?email_page={{ emails.previous_page_number }}">&laquo;</a></li>
+                            {% endif %}
+
+                            {% for i in emails.paginator.page_range %}
+                            {% if i <= emails.number|add:5 and i >= emails.number|add:-5 %}
+                                {% if emails.number == i %}
+                                <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                                {% else %}
+                                <li class="page-item"><a class="page-link" href="?email_page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                            {% if emails.has_next %}
+                            <li class="page-item"><a class="page-link" href="?email_page={{ emails.next_page_number }}">&raquo;</a></li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+</body>
+</html>

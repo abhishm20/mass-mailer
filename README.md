@@ -20,6 +20,8 @@
    ```
 - For better performance we can increase celery worker count by putting celery-worker server in Auto Scaling.
 
+- I have put all the configuration in project/bin folder
+
 
 ## To run
 

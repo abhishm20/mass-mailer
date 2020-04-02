@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 
 from celery_config import celery_app
 from core import email
-from core.models import Email
+from core.models import Email, Customer
 
 
 @celery_app.task(name="send_email_task", queue="default_queue")
@@ -21,4 +21,9 @@ def send_email_task(email_data):
     }
     d['recipients'] += email_data['cc'].split(",") if email_data['cc'] else []
     email.send_email(d)
-    Email.objects.select_for_update().filter(unique_id=email_data['unique_id']).update(is_sent=True)
+    Email.objects.select_for_update().filter(tracking_id=email_data['tracking_id']).update(is_sent=True)
+
+
+@celery_app.task(name="send_email_to_all_task", queue="default_queue")
+def send_email_to_all_task():
+    Customer.send_email_to_all()

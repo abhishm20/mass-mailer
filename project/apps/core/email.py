@@ -61,5 +61,6 @@ class _SendEmailUsingSES:
 
 
 def send_email(email_data):
-    email_obj = _SendEmailUsingSES()
-    email_obj.send_mail(email_data)
+    print(email_data)
+    # email_obj = _SendEmailUsingSES()
+    # email_obj.send_mail(email_data)

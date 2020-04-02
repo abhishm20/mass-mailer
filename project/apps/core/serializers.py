@@ -3,7 +3,7 @@ from __future__ import unicode_literals, absolute_import
 
 from rest_framework import serializers
 
-from core.models import Email, EmailEvent
+from core.models import Email, EmailEvent, Customer
 
 
 class EmailSerializer(serializers.ModelSerializer):
@@ -15,4 +15,10 @@ class EmailSerializer(serializers.ModelSerializer):
 class EmailEventSerializer(serializers.ModelSerializer):
     class Meta:
         model = EmailEvent
+        fields = "__all__"
+
+
+class CustomerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Customer
         fields = "__all__"

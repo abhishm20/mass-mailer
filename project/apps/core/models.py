@@ -19,9 +19,29 @@ class Customer(models.Model):
     class Meta:
         verbose_name = "Customer"
         verbose_name_plural = "Customers"
+        ordering = ('id',)
 
     def __repr__(self):
         return f"{Customer.__name__} <{self.name}, {self.email}>"
+
+    @staticmethod
+    def send_email_to_all():
+        from core.serializers import EmailSerializer
+        for customer in Customer.objects.all():
+            d = {
+                'to': customer.email,
+                'subject': 'Campaign from Finhosts',
+                'body': f'''
+                    Hi {customer.name},
+                    <br><br>
+                    Hope you are doing fine.
+                    <br><br>
+                    <a href='EMAIL_CLICK_TRACKING' tagret='_blank'>Click here to see</a>
+                '''
+            }
+            s = EmailSerializer(data=d)
+            s.is_valid(True)
+            s.save()
 
 
 class Email(models.Model):
