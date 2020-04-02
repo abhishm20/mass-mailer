@@ -36,7 +36,7 @@ class Customer(models.Model):
                     <br><br>
                     Hope you are doing fine.
                     <br><br>
-                    <a href='EMAIL_CLICK_TRACKING' tagret='_blank'>Click here to see</a>
+                    <a href='EMAIL_CLICK_TRACKING' target='_blank'>Click here to see</a>
                 '''
             }
             s = EmailSerializer(data=d)
