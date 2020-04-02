@@ -11,6 +11,19 @@ from core.config import DEFAULT_SENDER_EMAIL, HOST_NAME
 from core.constant import EMAIL_EVENT_TYPES
 
 
+# Customr Model just for testing
+class Customer(models.Model):
+    name = models.TextField(max_length=500)
+    email = models.EmailField()
+
+    class Meta:
+        verbose_name = "Customer"
+        verbose_name_plural = "Customers"
+
+    def __repr__(self):
+        return f"{Customer.__name__} <{self.name}, {self.email}>"
+
+
 class Email(models.Model):
     created_at = models.DateTimeField(db_index=True, null=True, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)
@@ -34,7 +47,7 @@ class Email(models.Model):
         ordering = ('-created_at',)
 
     def __repr__(self):
-        return f"{Email.__name__} <{self.type}, {self.subject}>"
+        return f"{Email.__name__} <{self.to}, {self.subject}>"
 
     def save(self, *args, **kwargs):
         if not self.id:
@@ -42,9 +55,9 @@ class Email(models.Model):
         self.updated_at = utility.get_current_time()
 
         self.tracking_id = uuid.uuid4()
-        self.body = self.body + Email.get_open_tracking_link(self.tracking_id) % (str(self.tracking_id))
+        self.body = self.body + Email.get_open_tracking_link(self.tracking_id)
         self.body = self.body.replace("EMAIL_CLICK_TRACKING", Email.get_click_tracking_link(self.tracking_id))
-        self.reply_to += ';' + self.sender
+        self.reply_to = self.reply_to + ';' + self.sender if self.reply_to else self.sender
         super().save(*args, **kwargs)
 
     @staticmethod

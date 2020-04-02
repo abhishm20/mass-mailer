@@ -19,3 +19,26 @@
    6. Celery send each mail one by one.
    ```
 - For better performance we can increase celery worker count by putting celery-worker server in Auto Scaling.
+
+
+## To run
+
+1. Install dependencies:
+
+    `pip install -r requirements.txt`
+
+2. To load customers in DB
+
+    `python manage.py runscript load_customers`
+    
+3. Run celery
+
+    `celery -A project.celery_config worker -l info -Q default_queue --concurrency=4 -O fair`
+
+4. Run flower to monitor celery tasks
+
+    `flower -A project.celery_config --port=5555 --url-prefix=flower`
+
+5. Run server
+
+    `python manage.py runserver`

@@ -38,17 +38,15 @@ APPEND_SLASH = True
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.contenttypes',
+    'django.contrib.auth',
+    'django.contrib.messages',
+    'django.contrib.sessions',
+    'django.contrib.staticfiles',
+    'django_extensions'
 ]
 
 THIRD_PARTY_APPS = [
-    'storages',
-    'corsheaders',
     'rest_framework',
-    'django_filters',
-    'django_user_agents',
-    'django_celery_beat',
-    'django_celery_results',
-    'django_extensions',
     'django_mysql',
 ]
 
@@ -58,16 +56,35 @@ PROJECT_APPS = [
 
 INSTALLED_APPS += THIRD_PARTY_APPS + PROJECT_APPS
 
+LOCKDOWN_ADMIN = True
+
+
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
 ]
 
 ROOT_URLCONF = 'project.urls'
 
 TEMPLATES = [
-
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.template.context_processors.media",
+                "django.template.context_processors.static",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ],
+        },
+    },
 ]
 
 WSGI_APPLICATION = 'project.wsgi.application'
@@ -89,8 +106,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-SITE_ID = 2
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/

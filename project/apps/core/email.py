@@ -39,14 +39,14 @@ class _SendEmailUsingSES:
         server.login(self.JSON_DATA['SMTP_USERNAME'], self.JSON_DATA['SMTP_PASSWORD'])
         return server
 
-    def send_mail(self, msg_data):
+    def send_mail(self, email_data):
         """ To Send email with attachments."""
         try:
             msg = MIMEMultipart('alternative')
-            for key, value in msg_data['msg'].items():
+            for key, value in email_data['message'].items():
                 msg[key] = value
             msg.add_header('X-SES-CONFIGURATION-SET', 'ConfigSet')
-            self.connection.sendmail(msg['From'], msg_data['rcpt'], msg.as_string())
+            self.connection.sendmail(email_data['sender'], email_data['recipients'], msg.as_string())
             self.connection.close()
             # Display an error message if something goes wrong.
         except ConnectionError as e:
@@ -54,13 +54,12 @@ class _SendEmailUsingSES:
         except Exception as e:
             app_logger.exception(e)
         else:
-            app_logger.log({
+            app_logger.info({
                 'type': "EMAIL_SENT",
-                'data': msg_data
+                'data': email_data
             })
 
 
 def send_email(email_data):
-    data = json.loads(email_data)
     email_obj = _SendEmailUsingSES()
-    email_obj.send_mail(data)
+    email_obj.send_mail(email_data)

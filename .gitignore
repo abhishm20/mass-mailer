@@ -105,11 +105,6 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# Migrations
-**/migrations/**
-!**/migrations
-!**/migrations/__init__.py
-
 # Temp DB
 dump.rdb
 

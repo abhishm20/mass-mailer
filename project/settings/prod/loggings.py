@@ -30,20 +30,6 @@ LOGGING = {
         }
     },
     'handlers': {
-        'db': {
-            'level': 'WARNING',
-            'class': 'logging.handlers.TimedRotatingFileHandler',
-            'when': 'midnight',
-            'backupCount': '30',
-            'filename': os.path.join(LOGS_DIR, 'db.log'),
-            'formatter': 'verbose'
-        },
-        'djangolog': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(LOGS_DIR, 'djangolog.log'),
-            'formatter': 'verbose'
-        },
         'app_log': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
@@ -53,15 +39,6 @@ LOGGING = {
 
     },
     'loggers': {
-        'django.db.backends': {
-            'level': 'WARNING',
-            'handlers': ['db'],
-        },
-        'django': {
-            'handlers': ['djangolog'],
-            'level': 'INFO',
-            'propagate': True,
-        },
         'app_log': {
             'handlers': ['app_log'],
             'level': 'DEBUG'

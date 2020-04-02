@@ -1,7 +1,7 @@
 {
   "ses": {
-    "SMTP_USERNAME": "AKIAJXRAOIKJPS7PTIDA",
-    "SMTP_PASSWORD": "BGKUTqj0iEwMXpkct3VUFXCfwyBnRnVFsSiN/bZT0F3w",
+    "SMTP_USERNAME": "AKIAQ2T4X4GLPFKZX467",
+    "SMTP_PASSWORD": "BNUt0bWOc/aoJ7qV2J2PsAB2IMr1FeaIoahfUFTgKr8o",
     "SMTP_HOST": "email-smtp.us-east-1.amazonaws.com",
     "SMTP_PORT": "587",
     "CONFIGURATION_SET": "ConfigSet"

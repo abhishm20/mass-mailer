@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 
+import sys
+
 # Logging
 LOGGING = {
     'version': 1,
@@ -25,18 +27,16 @@ LOGGING = {
             'format': '{"additional_field": "value"}'
         }
     },
+    "handlers": {
+        "console": {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+            "stream": sys.stdout,
+        }
+    },
     'loggers': {
-        'django.db.backends': {
-            'level': 'WARNING',
-            'handlers': ['db'],
-        },
-        'django': {
-            'handlers': ['djangolog'],
-            'level': 'INFO',
-            'propagate': True,
-        },
         'app_log': {
-            'handlers': ['app_log'],
+            'handlers': ['console'],
             'level': 'DEBUG'
         }
     }

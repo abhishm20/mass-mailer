@@ -7,7 +7,7 @@ from __future__ import unicode_literals, absolute_import
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'lsd2',
+        'NAME': 'mass_mailer',
         'USER': 'root',
         'PASSWORD': 'Ainaa@007',
         'HOST': '127.0.0.1',

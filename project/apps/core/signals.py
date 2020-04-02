@@ -20,4 +20,4 @@ def send_email_post_signal(sender, instance, *args, **kwargs):
                 'data': email_data
             })
             from core.tasks import send_email_task
-            send_email_task(email_data)
+            send_email_task.delay(email_data)
