@@ -43,10 +43,12 @@ class _SendEmailUsingSES:
         """ To Send email with attachments."""
         try:
             msg = MIMEMultipart('alternative')
-            for key, value in email_data['message'].items():
-                msg[key] = value
             msg.add_header('X-SES-CONFIGURATION-SET', 'ConfigSet')
-            self.connection.sendmail(email_data['sender'], email_data['recipients'], msg.as_string())
+            msg['From'] = f"{email_data['sender_name']} {email_data['sender']}"
+            msg['To'] = email_data['to']
+            msg['Subject'] = email_data['subject']
+            msg = msg.as_string() + "\n" + email_data.get('body', '')
+            self.connection.sendmail(email_data['sender'], email_data['recipients'], msg)
             self.connection.close()
             # Display an error message if something goes wrong.
         except ConnectionError as e:
