@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NAME="ls_server"                                  # Name of the application
+NAME="mass_mailer_server"                                  # Name of the application
 VIRTUALENV=/home/ubuntu/mass_mailer/venv/bin/             # Django project directory
 PROJ_DIRECTORY=/home/ubuntu/mass_mailer/             # Django project directory
 SOCKFILE=/home/ubuntu/gunicorn.sock  # we will communicte using this unix socket

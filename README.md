@@ -20,7 +20,7 @@
    ```
 - For better performance we can increase celery worker count by putting celery-worker server in Auto Scaling.
 
-- I have put all the configuration in project/bin folder
+- I have put all the configuration in project/bin folder to setup on server
 
 
 ## To run
@@ -44,3 +44,9 @@
 5. Run server
 
     `python manage.py runserver`
+    
+## Demo
+
+`open 3.87.140.143 for listing`
+
+`open this 3.87.140.143/flower`
