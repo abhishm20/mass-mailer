@@ -26,3 +26,12 @@ class EmailEventAdmin(admin.ModelAdmin):
 
 
 admin.site.register(EmailEvent, EmailEventAdmin)
+
+
+class CustomerAdmin(admin.ModelAdmin):
+    save_on_top = True
+    search_fields = ('name', 'email', 'id')
+    list_display = ('name', 'email', 'id')
+
+
+admin.site.register(Customer, CustomerAdmin)
